@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Apk Extractor</string>
-    <string name="hello_world">Hello world!</string>
+	<string name="app_name">Apk Extractor</string>
+	<string name="hello_world">Hello world!</string>
+	<string name="toast_extracted">Apk file was extracted as %s</string>
+	<string name="toast_failed">Failed to extract apk file. See adb log for details.</string>
+	<string name="alert_root_title">Try with root?</string>
+	<string name="alert_root_body">It seems that this application cannot be installed using regular way. It is okay if it paid app. In this case android tries to protect it from copying. However it still can be extracted on rooted phones. Try to extract it with root?</string>
+	<string name="alert_root_yes">Lets try</string>
+	<string name="alert_root_no">Not now</string>
 
 </resources>

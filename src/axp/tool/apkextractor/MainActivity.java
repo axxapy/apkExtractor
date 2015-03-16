@@ -13,7 +13,7 @@ import android.support.v7.widget.Toolbar;
 import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
-	ApkList adapter;
+	private ApkList adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class MainActivity extends ActionBarActivity {
 
 		RecyclerView listView = (RecyclerView)findViewById(android.R.id.list);
 
-		adapter = new ApkList(getPackageManager());
+		adapter = new ApkList(this);
 		listView.setLayoutManager(new LinearLayoutManager(this));
 		listView.setAdapter(adapter);
 

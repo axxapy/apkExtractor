@@ -1,13 +1,14 @@
 package axp.tool.apkextractor;
 
+import android.app.Activity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,13 +24,15 @@ public class ApkList extends RecyclerView.Adapter<ApkList.ViewHolder> {
 	private ArrayList<ApplicationInfo> list            = new ArrayList<ApplicationInfo>();
 	private ExecutorService            executorService = Executors.newFixedThreadPool(5);
 	private Handler                    handler         = new Handler();
-	private final PackageManager pm;
+	public       Activity       mActivity;
+	public final PackageManager pm;
 
 	private Map<String, String>   cache_appName = Collections.synchronizedMap(new LinkedHashMap<String, String>(10, 1.5f, true));
 	private Map<String, Drawable> cache_appIcon = Collections.synchronizedMap(new LinkedHashMap<String, Drawable>(10, 1.5f, true));
 
-	public ApkList(final PackageManager pm) {
-		this.pm = pm;
+	public ApkList(Activity activity) {
+		this.pm = activity.getPackageManager();
+		mActivity = activity;
 	}
 
 	class InfoLoader implements Runnable {
@@ -74,22 +77,31 @@ public class ApkList extends RecyclerView.Adapter<ApkList.ViewHolder> {
 		}
 	}
 
-	static class ViewHolder extends RecyclerView.ViewHolder {
-		public TextView  txtPackageName;
-		public ImageView imgIcon;
-		public TextView  txtAppName;
+	static class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
+		public  TextView  txtPackageName;
+		public  ImageView imgIcon;
+		public  TextView  txtAppName;
+		private ApkList   adapter;
 
-		public ViewHolder(View v) {
+		public ViewHolder(View v, ApkList adapter) {
 			super(v);
+			this.adapter = adapter;
 			txtPackageName = (TextView)v.findViewById(R.id.txtPackageName);
 			imgIcon = (ImageView)v.findViewById(R.id.imgIcon);
 			txtAppName = (TextView)v.findViewById(R.id.txtAppName);
+			v.setOnClickListener(this);
+		}
+
+		@Override
+		public void onClick(View v) {
+			ApplicationInfo item = adapter.getItem(getPosition());
+			new Extractor(adapter.mActivity).extract(item);
 		}
 	}
 
 	@Override
 	public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-		return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, viewGroup, false));
+		return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, viewGroup, false), this);
 	}
 
 	@Override
@@ -104,6 +116,10 @@ public class ApkList extends RecyclerView.Adapter<ApkList.ViewHolder> {
 			holder.imgIcon.setImageDrawable(null);
 			executorService.submit(new InfoLoader(pm, holder, item));
 		}
+	}
+
+	public ApplicationInfo getItem(int pos) {
+		return list.get(pos);
 	}
 
 	@Override
