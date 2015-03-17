@@ -3,6 +3,10 @@
 
 	<string name="app_name">Apk Extractor</string>
 	<string name="hello_world">Hello world!</string>
+	<string name="dlg_loading_title">Loading</string>
+	<string name="dlg_loading_body">Loading list of installed applications...</string>
+	<string name="msg_search">Search</string>
+	<string name="msg_search_help">Search by app or package names</string>
 	<string name="toast_extracted">Apk file was extracted as %s</string>
 	<string name="toast_failed">Failed to extract apk file. See adb log for details.</string>
 	<string name="alert_root_title">Try with root?</string>
