@@ -18,23 +18,15 @@ android {
 	buildToolsVersion "21.1.2"
 
 	sourceSets {
-                main {
-                        manifest.srcFile 'AndroidManifest.xml'
-                        //resources.srcDirs = ['src']
-                        java.srcDirs = ['src']
-                        aidl.srcDirs = ['src']
-                        renderscript.srcDirs = ['src']
-                        res.srcDirs = ['res']
-                        assets.srcDirs = ['assets']
-                }
-	}
-
-	defaultConfig {
-		applicationId "axp.tool.apkextractor"
-		minSdkVersion 9
-		targetSdkVersion 21
-		versionCode 1
-		versionName "1.0"
+		main {
+			manifest.srcFile 'AndroidManifest.xml'
+			//resources.srcDirs = ['src']
+			java.srcDirs = ['src']
+			aidl.srcDirs = ['src']
+			renderscript.srcDirs = ['src']
+			res.srcDirs = ['res']
+			assets.srcDirs = ['assets']
+		}
 	}
 
 	compileOptions {
