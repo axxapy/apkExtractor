@@ -9,7 +9,7 @@ Features
 
 * Extract free apps (no root needed)
 * Extract paid apps (with root)
-* Supports android 2.3+
+* Supports android 2.1+
 
 License
 -------
