@@ -32,6 +32,8 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 	public       MainActivity   mActivity;
 	public final PackageManager packageManager;
 
+	int names_to_load = 0;
+
 	private Map<String, String>   cache_appName = Collections.synchronizedMap(new LinkedHashMap<String, String>(10, 1.5f, true));
 	private Map<String, Drawable> cache_appIcon = Collections.synchronizedMap(new LinkedHashMap<String, Drawable>(10, 1.5f, true));
 
@@ -52,6 +54,13 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 		@Override
 		public void run() {
 			cache_appName.put(applicationInfo.packageName, (String)applicationInfo.loadLabel(packageManager));
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					names_to_load--;
+					if (names_to_load == 0) mActivity.hideProgressBar();
+				}
+			});
 		}
 	}
 
@@ -169,6 +178,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 	}
 
 	public void addItem(ApplicationInfo item) {
+		names_to_load++;
 		executorServiceNames.submit(new AppNameLoader(item));
 		list_original.add(item);
 		filterListByPattern();

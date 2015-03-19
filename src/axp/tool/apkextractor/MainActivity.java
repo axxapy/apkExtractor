@@ -17,12 +17,15 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 	private ApkListAdapter apkListAdapter;
+
+	private ProgressBar progressBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,14 @@ public class MainActivity extends ActionBarActivity {
 		listView.setLayoutManager(new LinearLayoutManager(this));
 		listView.setAdapter(apkListAdapter);
 
+		progressBar = (ProgressBar) findViewById(android.R.id.progress);
+		progressBar.setVisibility(View.VISIBLE);
+
 		new Loader(this).execute();
+	}
+
+	public void hideProgressBar() {
+		progressBar.setVisibility(View.GONE);
 	}
 
 	public void addItem(ApplicationInfo item) {
