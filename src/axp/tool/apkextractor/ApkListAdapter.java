@@ -1,6 +1,5 @@
 package axp.tool.apkextractor;
 
-import android.app.Activity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -30,7 +29,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 	private ExecutorService            executorServiceNames = Executors.newFixedThreadPool(3);
 	private ExecutorService            executorServiceIcons = Executors.newFixedThreadPool(3);
 	private Handler                    handler              = new Handler();
-	public       Activity       mActivity;
+	public       MainActivity   mActivity;
 	public final PackageManager packageManager;
 
 	private Map<String, String>   cache_appName = Collections.synchronizedMap(new LinkedHashMap<String, String>(10, 1.5f, true));
@@ -38,7 +37,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 
 	private String search_pattern;
 
-	public ApkListAdapter(Activity activity) {
+	public ApkListAdapter(MainActivity activity) {
 		this.packageManager = activity.getPackageManager();
 		mActivity = activity;
 	}
@@ -115,8 +114,8 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 
 		@Override
 		public void onClick(View v) {
-			ApplicationInfo item = adapter.getItem(getPosition());
-			new Extractor(adapter.mActivity).extract(item);
+			ApplicationInfo info = adapter.getItem(getPosition());
+			adapter.mActivity.doExctract(info);
 		}
 
 		public void setAppName(String name, String highlight) {

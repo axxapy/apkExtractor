@@ -1,71 +1,69 @@
 package axp.tool.apkextractor;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.pm.ApplicationInfo;
 import android.os.Environment;
-import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.channels.FileChannel;
 
 public class Extractor {
-	private Activity mActivity;
-
-	public Extractor(Activity activity) {
-		this.mActivity = activity;
+	public String extractWithoutRoot(ApplicationInfo info) throws Exception {
+		File src = new File(info.sourceDir);
+		File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "apk/" + src.getName());
+		dst = buildDstPath(dst);
+		try {
+			copy(src, dst);
+		} catch (IOException ex) {
+			throw new Exception(ex.getMessage());
+		}
+		if (!dst.exists()) {
+			throw new Exception("cannot exctract file [no root]");
+		}
+		return dst.toString();
 	}
 
-	public void extract(final ApplicationInfo info) {
-		final File src = new File(info.sourceDir);
+	public String extractWithRoot(ApplicationInfo info) throws Exception {
+		File src = new File(info.sourceDir);
+		String path = System.getenv("EXTERNAL_STORAGE") + "/Download/apk/" + info.packageName + ".apk";
+		File dst = buildDstPath(new File(path));
 
+		Process p = null;
+		StringBuilder err = new StringBuilder();
 		try {
-			File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "apk/" + src.getName());
-			copy(src, dst);
-			Toast.makeText(mActivity, String.format(mActivity.getString(R.string.toast_extracted), dst.getAbsolutePath()), Toast.LENGTH_SHORT).show();
-		} catch (IOException e) {
-			new AlertDialog.Builder(mActivity)
-				.setTitle(R.string.alert_root_title)
-				.setMessage(R.string.alert_root_body)
-				.setPositiveButton(R.string.alert_root_yes, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						try {
-							String path = System.getenv("EXTERNAL_STORAGE") + "/Download/apk/" + info.packageName + ".apk";
-							new File(path).getParentFile().mkdirs();
-							//Log.d("AXP", "su -c cat " + src.getAbsolutePath() + " > " + path);
-							Process p = Runtime.getRuntime().exec("su -c cat " + src.getAbsolutePath() + " > " + path);
-							try {
-								p.waitFor();
-							} catch (InterruptedException e1) {
-								e1.printStackTrace();
-							}
-							if (p.exitValue() == 0) {
-								Toast.makeText(mActivity, String.format(mActivity.getString(R.string.toast_extracted), path), Toast.LENGTH_SHORT).show();
-								return;
-							}
+			p = Runtime.getRuntime().exec("su -c cat " + src.getAbsolutePath() + " > " + dst.getAbsolutePath());
+			p.waitFor();
 
-							/*BufferedReader reader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-							String line = "";
-							while ((line = reader.readLine())!= null) {
-								Log.d("AXP", line);
-								//output.append(line + "\n");
-							}*/
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						Toast.makeText(mActivity, R.string.toast_failed, Toast.LENGTH_SHORT).show();
-					}
-				}).setNegativeButton(R.string.alert_root_no, null).show();
+			if (p.exitValue() != 0) {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+				String line = "";
+				while ((line = reader.readLine()) != null) {
+					err.append(line);
+					err.append("\n");
+				}
+
+				throw new Exception(err.toString());
+			}
+		} catch (IOException e) {
+			throw new Exception(e.getMessage());
+		} catch (InterruptedException e) {
+			throw new Exception(e.getMessage());
+		} finally {
+			if (p != null) {
+				try {
+					p.destroy();
+				} catch (Exception e) {
+				}
+			}
 		}
+
+		if (!dst.exists()) {
+			throw new Exception("cannot exctract file [root]");
+		}
+
+		return dst.getAbsolutePath();
 	}
 
 	private void copy(File src, File dst) throws IOException {
-		dst.getParentFile().mkdirs();
 		FileInputStream inStream = new FileInputStream(src);
 		FileOutputStream outStream = new FileOutputStream(dst);
 		FileChannel inChannel = inStream.getChannel();
@@ -73,5 +71,24 @@ public class Extractor {
 		inChannel.transferTo(0, inChannel.size(), outChannel);
 		inStream.close();
 		outStream.close();
+	}
+
+	private File buildDstPath(File path) throws IOException {
+		if ((!path.getParentFile().exists() && !path.getParentFile().mkdirs()) || !path.getParentFile().isDirectory()) {
+			throw new IOException("Cannot create directory: " + path.getParentFile().getAbsolutePath());
+		}
+		if (!path.exists()) return path;
+
+		File dst = path;
+		String fname = path.getName();
+		int index = fname.lastIndexOf(".");
+		String ext = fname.substring(index);
+		String name = fname.substring(0, index);
+
+		for (int i = 0; dst.exists(); i++) {
+			dst = new File(path.getParentFile(), name + "-" + String.valueOf(i) + ext);
+		}
+
+		return dst;
 	}
 }
