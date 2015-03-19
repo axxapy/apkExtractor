@@ -30,24 +30,22 @@
 			android:layout_height="match_parent" />
 
 		<LinearLayout
-			android:layout_width="match_parent"
 			android:orientation="vertical"
+			android:gravity="center"
+			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 
 			<TextView
 				android:id="@+id/txtAppName"
-
 				android:layout_width="match_parent"
-				android:layout_height="0px"
-				android:layout_weight="1"
+				android:layout_height="wrap_content"
 				android:gravity="center_horizontal|bottom"
 				android:textAppearance="?android:attr/textAppearanceMedium" />
 
 			<TextView
 				android:id="@+id/txtPackageName"
 				android:layout_width="match_parent"
-				android:layout_height="0px"
-				android:layout_weight="1"
+				android:layout_height="wrap_content"
 				android:gravity="center_horizontal|top"
 				android:textAppearance="?android:attr/textAppearanceSmall" />
 		</LinearLayout>
