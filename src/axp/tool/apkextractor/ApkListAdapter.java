@@ -1,7 +1,10 @@
 package axp.tool.apkextractor;
 
+import android.app.AlertDialog;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -16,6 +19,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -106,7 +114,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 		}
 	}
 
-	static class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
+	static class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener, View.OnLongClickListener {
 		private ApkListAdapter adapter;
 		private TextView       txtPackageName;
 		private TextView       txtAppName;
@@ -119,12 +127,57 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 			imgIcon = (ImageView)v.findViewById(R.id.imgIcon);
 			txtAppName = (TextView)v.findViewById(R.id.txtAppName);
 			v.setOnClickListener(this);
+			v.setOnLongClickListener(this);
 		}
 
 		@Override
 		public void onClick(View v) {
 			ApplicationInfo info = adapter.getItem(getPosition());
 			adapter.mActivity.doExctract(info);
+		}
+
+		@Override
+		public boolean onLongClick(View v) {
+			PackageInfo info = null;
+			try {
+				info = adapter.packageManager.getPackageInfo(adapter.getItem(getPosition()).packageName, PackageManager.GET_SIGNATURES);
+			} catch (PackageManager.NameNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			final Signature[] arrSignatures = info.signatures;
+			StringBuilder sb = new StringBuilder();
+			for (final Signature sig : arrSignatures) {//Get the X.509 certificate.
+				final byte[] rawCert = sig.toByteArray();
+				InputStream certStream = new ByteArrayInputStream(rawCert);
+
+				final CertificateFactory certFactory;
+				final X509Certificate x509Cert;
+				try {
+					certFactory = CertificateFactory.getInstance("X509");
+					x509Cert = (X509Certificate)certFactory.generateCertificate(certStream);
+
+					String key = x509Cert.getPublicKey().toString();
+					key = key.substring(key.indexOf("modulus")+8, key.indexOf(",publicExponent"));
+
+
+					sb.append("Certificate subject: " + x509Cert.getSubjectDN() + "\n");
+					sb.append("Certificate issuer: " + x509Cert.getIssuerDN() + "\n");
+					sb.append("Certificate serial number: " + String.valueOf(x509Cert.getSerialNumber()) + "\n");
+					sb.append("Certificate hash: " + String.valueOf(sig.hashCode()) + "\n");
+					sb.append("\nPublic key: " + x509Cert.getPublicKey().toString() + "\n");
+					sb.append("\nPublic key [last 16]: " + key.substring(key.length()-16) + "\n");
+				} catch (CertificateException e) {
+					// e.printStackTrace();
+				}
+			}
+
+			new AlertDialog.Builder(adapter.mActivity)
+				.setTitle("cert info")
+				.setMessage(sb.toString())
+				.setPositiveButton("Close", null)
+				.show();
+			return true;
 		}
 
 		public void setAppName(String name, String highlight) {
@@ -137,7 +190,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 
 		private void setAndHighlight(TextView view, String value, String pattern) {
 			view.setText(value);
-			if (pattern == null || pattern.isEmpty()) return;// nothing to highlight
+			if (pattern == null || pattern.equals("")) return;// nothing to highlight
 
 			value = value.toLowerCase();
 			for (int offset = 0, index = value.indexOf(pattern, offset); index >= 0 && offset < value.length(); index = value.indexOf(pattern, offset)) {
