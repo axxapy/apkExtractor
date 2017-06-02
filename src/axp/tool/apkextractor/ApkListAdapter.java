@@ -22,12 +22,22 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHolder> {
+	private ThreadFactory tFactory = new ThreadFactory() {
+		@Override
+		public Thread newThread(Runnable r) {
+			Thread t = new Thread(r);
+			t.setDaemon(true);
+			return t;
+		}
+	};
+
 	private ArrayList<ApplicationInfo> list                 = new ArrayList<ApplicationInfo>();
 	private ArrayList<ApplicationInfo> list_original        = new ArrayList<ApplicationInfo>();
-	private ExecutorService            executorServiceNames = Executors.newFixedThreadPool(3);
-	private ExecutorService            executorServiceIcons = Executors.newFixedThreadPool(3);
+	private ExecutorService            executorServiceNames = Executors.newFixedThreadPool(3, tFactory);
+	private ExecutorService            executorServiceIcons = Executors.newFixedThreadPool(3, tFactory);
 	private Handler                    handler              = new Handler();
 	public       MainActivity   mActivity;
 	public final PackageManager packageManager;
@@ -58,7 +68,10 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 				@Override
 				public void run() {
 					names_to_load--;
-					if (names_to_load == 0) mActivity.hideProgressBar();
+					if (names_to_load == 0) {
+						mActivity.hideProgressBar();
+						executorServiceNames.shutdown();
+					}
 				}
 			});
 		}
