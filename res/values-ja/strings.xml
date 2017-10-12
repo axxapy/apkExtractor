@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">Apk Extractor</string>
+	<string name="hello_world">Hello world!</string>
+	<string name="dlg_loading_title">ロード中</string>
+	<string name="dlg_loading_body">インストールされたアプリケーションからリストをロード中...</string>
+	<string name="msg_search">検索</string>
+	<string name="msg_search_help">アプリまたはパッケージ名かで検索</string>
+	<string name="toast_extracted">Apk ファイルが %s として抽出されました</string>
+	<string name="toast_failed">Apk ファイルの抽出に失敗しました。 詳細は adb ログを参照してください。</string>
+	<string name="alert_root_title">root で試しますか?</string>
+	<string name="alert_root_body">このアプリケーションは通常の方法で抽出できないようです。 購入したアプリも OK です: Android はコピーから保護しようとしますが、root 化したデバイスで抽出することができます。 お使いのデバイスが root 化されている場合、apkExtractor は root を使用して抽出を試みます。</string>
+	<string name="alert_root_yes">root で試してみる</string>
+	<string name="alert_root_no">後で</string>
+
+</resources>
