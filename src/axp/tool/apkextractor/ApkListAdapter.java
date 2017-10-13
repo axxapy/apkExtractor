@@ -136,7 +136,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 
 		@Override
 		public void onClick(View v) {
-			ApplicationInfo info = adapter.getItem(getPosition());
+			ApplicationInfo info = adapter.getItem(getAdapterPosition());
 			adapter.mActivity.doExctract(info);
 		}
 

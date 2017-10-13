@@ -9,8 +9,9 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -22,10 +23,11 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 	private ApkListAdapter apkListAdapter;
 
 	private ProgressBar progressBar;
+	private PermissionResolver permissionResolver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,17 @@ public class MainActivity extends ActionBarActivity {
 		progressBar.setVisibility(View.VISIBLE);
 
 		new Loader(this).execute();
+
+		permissionResolver = new PermissionResolver(this);
+	}
+
+
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		if (!permissionResolver.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
+			super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		}
 	}
 
 	public void hideProgressBar() {
@@ -86,6 +99,8 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	public void doExctract(final ApplicationInfo info) {
+		if (!permissionResolver.resolve()) return;
+
 		final Extractor extractor = new Extractor();
 		try {
 			String dst = extractor.extractWithoutRoot(info);
