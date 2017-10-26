@@ -14,7 +14,8 @@
 	</style>
 
 	<style name="myCardView" parent="CardView">
-		<item name="android:foreground">?android:selectableItemBackground</item>
+		<!--<item name="android:foreground">?android:selectableItemBackground</item>-->
+		<item name="android:foreground">?attr/selectableItemBackground</item>
 	</style>
 
 	<!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
