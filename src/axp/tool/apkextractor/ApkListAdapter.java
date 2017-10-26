@@ -1,6 +1,6 @@
 package axp.tool.apkextractor;
 
-import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -34,11 +34,11 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 		}
 	};
 
-	private ArrayList<ApplicationInfo> list                 = new ArrayList<ApplicationInfo>();
-	private ArrayList<ApplicationInfo> list_original        = new ArrayList<ApplicationInfo>();
-	private ExecutorService            executorServiceNames = Executors.newFixedThreadPool(3, tFactory);
-	private ExecutorService            executorServiceIcons = Executors.newFixedThreadPool(3, tFactory);
-	private Handler                    handler              = new Handler();
+	private ArrayList<PackageInfo> list                 = new ArrayList<PackageInfo>();
+	private ArrayList<PackageInfo> list_original        = new ArrayList<PackageInfo>();
+	private ExecutorService        executorServiceNames = Executors.newFixedThreadPool(3, tFactory);
+	private ExecutorService        executorServiceIcons = Executors.newFixedThreadPool(3, tFactory);
+	private Handler                handler              = new Handler();
 	public       MainActivity   mActivity;
 	public final PackageManager packageManager;
 
@@ -55,15 +55,15 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 	}
 
 	class AppNameLoader implements Runnable {
-		private ApplicationInfo applicationInfo;
+		private PackageInfo package_info;
 
-		public AppNameLoader(ApplicationInfo info) {
-			applicationInfo = info;
+		public AppNameLoader(PackageInfo info) {
+			package_info = info;
 		}
 
 		@Override
 		public void run() {
-			cache_appName.put(applicationInfo.packageName, (String)applicationInfo.loadLabel(packageManager));
+			cache_appName.put(package_info.packageName, (String) package_info.applicationInfo.loadLabel(packageManager));
 			handler.post(new Runnable() {
 				@Override
 				public void run() {
@@ -78,12 +78,12 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 	}
 
 	class GuiLoader implements Runnable {
-		private ViewHolder      viewHolder;
-		private ApplicationInfo applicationInfo;
+		private ViewHolder  viewHolder;
+		private PackageInfo package_info;
 
-		public GuiLoader(ViewHolder h, ApplicationInfo info) {
+		public GuiLoader(ViewHolder h, PackageInfo info) {
 			viewHolder = h;
-			applicationInfo = info;
+			package_info = info;
 		}
 
 		@Override
@@ -91,12 +91,12 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 			boolean first = true;
 			do {
 				try {
-					final String appName = cache_appName.containsKey(applicationInfo.packageName)
-						? cache_appName.get(applicationInfo.packageName)
-						: (String)applicationInfo.loadLabel(packageManager);
-					final Drawable icon = applicationInfo.loadIcon(packageManager);
-					cache_appName.put(applicationInfo.packageName, appName);
-					cache_appIcon.put(applicationInfo.packageName, icon);
+					final String appName = cache_appName.containsKey(package_info.packageName)
+						? cache_appName.get(package_info.packageName)
+						: (String) package_info.applicationInfo.loadLabel(packageManager);
+					final Drawable icon = package_info.applicationInfo.loadIcon(packageManager);
+					cache_appName.put(package_info.packageName, appName);
+					cache_appIcon.put(package_info.packageName, icon);
 					handler.post(new Runnable() {
 						@Override
 						public void run() {
@@ -136,7 +136,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 
 		@Override
 		public void onClick(View v) {
-			ApplicationInfo info = adapter.getItem(getAdapterPosition());
+			PackageInfo info = adapter.getItem(getAdapterPosition());
 			adapter.mActivity.doExctract(info);
 		}
 
@@ -169,7 +169,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int i) {
-		ApplicationInfo item = list.get(i);
+		PackageInfo item = list.get(i);
 		holder.setPackageName(item.packageName, search_pattern);
 		if (cache_appIcon.containsKey(item.packageName) && cache_appName.containsKey(item.packageName)) {
 			holder.setAppName(cache_appName.get(item.packageName), search_pattern);
@@ -181,7 +181,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 		}
 	}
 
-	public ApplicationInfo getItem(int pos) {
+	public PackageInfo getItem(int pos) {
 		return list.get(pos);
 	}
 
@@ -190,7 +190,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 		return list.size();
 	}
 
-	public void addItem(ApplicationInfo item) {
+	public void addItem(PackageInfo item) {
 		names_to_load++;
 		executorServiceNames.submit(new AppNameLoader(item));
 		list_original.add(item);
@@ -206,7 +206,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 
 	private void filterListByPattern() {
 		list.clear();
-		for (ApplicationInfo info : list_original) {
+		for (PackageInfo info : list_original) {
 			boolean add = true;
 			do {
 				if (search_pattern == null || search_pattern.isEmpty()) {

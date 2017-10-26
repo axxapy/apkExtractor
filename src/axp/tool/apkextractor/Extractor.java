@@ -1,6 +1,6 @@
 package axp.tool.apkextractor;
 
-import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Environment;
 
@@ -8,13 +8,21 @@ import java.io.*;
 import java.nio.channels.FileChannel;
 
 public class Extractor {
-	public String extractWithoutRoot(ApplicationInfo info) throws Exception {
-		File src = new File(info.sourceDir);
+	private String get_out_filename(PackageInfo info) {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
+			return "/Download/apk/" + info.packageName + "_v" + info.versionCode + ".apk";
+		} else {
+			return "/apk/" + info.packageName + "_v" + info.versionCode + ".apk";
+		}
+	}
+
+	public String extractWithoutRoot(PackageInfo info) throws Exception {
+		File src = new File(info.applicationInfo.sourceDir);
 		File dst;
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
-			dst = new File(Environment.getExternalStorageDirectory(), "Download/apk/" + info.packageName + ".apk");
+			dst = new File(Environment.getExternalStorageDirectory(), get_out_filename(info));
 		} else {
-			dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "apk/" + info.packageName + ".apk");
+			dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),  get_out_filename(info));
 		}
 		dst = buildDstPath(dst);
 		try {
@@ -28,9 +36,9 @@ public class Extractor {
 		return dst.toString();
 	}
 
-	public String extractWithRoot(ApplicationInfo info) throws Exception {
-		File src = new File(info.sourceDir);
-		String path = System.getenv("EXTERNAL_STORAGE") + "/Download/apk/" + info.packageName + ".apk";
+	public String extractWithRoot(PackageInfo info) throws Exception {
+		File src = new File(info.applicationInfo.sourceDir);
+		String path = System.getenv("EXTERNAL_STORAGE") + get_out_filename(info);
 		File dst = buildDstPath(new File(path));
 
 		Process p = null;

@@ -6,6 +6,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 		progressBar.setVisibility(View.GONE);
 	}
 
-	public void addItem(ApplicationInfo item) {
+	public void addItem(PackageInfo item) {
 		apkListAdapter.addItem(item);
 	}
 
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	public void doExctract(final ApplicationInfo info) {
+	public void doExctract(final PackageInfo info) {
 		if (!permissionResolver.resolve()) return;
 
 		final Extractor extractor = new Extractor();
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 			.show();
 	}
 
-	class Loader extends AsyncTask<Void, ApplicationInfo, Void> {
+	class Loader extends AsyncTask<Void, PackageInfo, Void> {
 		ProgressDialog dialog;
 		MainActivity   mainActivity;
 
@@ -138,15 +139,15 @@ public class MainActivity extends AppCompatActivity {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			List<ApplicationInfo> packages = getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
-			for (ApplicationInfo packageInfo : packages) {
+			List<PackageInfo> packages = getPackageManager().getInstalledPackages(PackageManager.GET_META_DATA);
+			for (PackageInfo packageInfo : packages) {
 				publishProgress(packageInfo);
 			}
 			return null;
 		}
 
 		@Override
-		protected void onProgressUpdate(ApplicationInfo... values) {
+		protected void onProgressUpdate(PackageInfo... values) {
 			super.onProgressUpdate(values);
 			mainActivity.addItem(values[0]);
 		}
