@@ -13,7 +13,7 @@
 		<item name="windowNoTitle">true</item>
 	</style>
 
-	<style name="myCardView" parent="CardView">
+	<style name="myCardView">
 		<!--<item name="android:foreground">?android:selectableItemBackground</item>-->
 		<item name="android:foreground">?attr/selectableItemBackground</item>
 	</style>
