@@ -1,0 +1,2 @@
+Extrahiere APK-Dateien von deinem Gerät, auch wenn sie via Google Play Store installiert wurden.
+Benötigt Root-Zugriff für gekaufte Apps.
