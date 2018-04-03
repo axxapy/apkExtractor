@@ -1,9 +1,10 @@
 buildscript {
 	repositories {
 		jcenter()
+		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:2.3.3'
+		classpath 'com.android.tools.build:gradle:3.1.0'
 	}
 }
 
@@ -11,11 +12,12 @@ apply plugin: 'com.android.application'
 
 repositories {
 	jcenter()
+	google()
 }
 
 android {
 	compileSdkVersion 25
-	buildToolsVersion "26.0.2"
+	buildToolsVersion "27.0.3"
 
 	compileOptions {
 		sourceCompatibility JavaVersion.VERSION_1_6
@@ -47,6 +49,6 @@ android {
 }
 
 dependencies {
-	compile 'com.android.support:appcompat-v7:25.3.1'
-	compile 'com.android.support:recyclerview-v7:25.3.1'
+	compile 'com.android.support:appcompat-v7:25.4.0'
+	compile 'com.android.support:recyclerview-v7:25.4.0'
 }
