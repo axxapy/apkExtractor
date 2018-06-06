@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+	tools:ignore="MissingTranslation">
+
+	<string name="app_name">APK-utvinner</string>
+	<string name="hello_world">Hallo, verden!</string>
+	<string name="dlg_loading_title">Laster inn</string>
+	<string name="dlg_loading_body">Laster inn listen over installerte apper…</string>
+	<string name="msg_search">Søk</string>
+	<string name="msg_search_help">Søk etter app- eller pakke-navn</string>
+	<string name="toast_extracted">APK-filen ble utvinnet som %s</string>
+	<string name="toast_failed">Klarte ikke å utvinne APK-filen. Se ADB-loggen for detaljer.</string>
+	<string name="alert_root_title">Vil du prøve med root?</string>
+	<string name="alert_root_body">Det ser ut til at denne appen ikke kan bli utvinnet på vanlig måte. Dette er greit for betalte apper: Android prøver å beskytte dem mot kopiering. Men de fortstatt bli utvunnet på rootede enheter. Dersom enheten din er rootet, kunne APK-utvinner prøvd å utvinne den ved å bruke root.</string>
+	<string name="alert_root_yes">La oss prøve med root</string>
+	<string name="alert_root_no">Ikke nå</string>
+	<string name="alert_perm_title">Tillatelse er påkrevd</string>
+	<string name="alert_perm_body">For å kunne skrive til en APK-fil, må appen få \"Lagring\"stillatelse.\nVennligst åpne appens innstillinger og gi den \"Lagring\"stillatelse.</string>
+	<string name="alert_perm_btn">Åpne innstillinger</string>
+
+</resources>
