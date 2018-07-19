@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 		final Extractor extractor = new Extractor();
 		try {
 			String dst = extractor.extractWithoutRoot(info);
-			Toast.makeText(this, String.format(this.getString(R.string.toast_extracted), dst), Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, String.format(this.getString(R.string.toast_extracted), dst), Toast.LENGTH_LONG).show();
 			return;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -118,10 +118,10 @@ public class MainActivity extends AppCompatActivity {
 				public void onClick(DialogInterface dialog, int which) {
 					try {
 						String dst = extractor.extractWithRoot(info);
-						Toast.makeText(MainActivity.this, String.format(MainActivity.this.getString(R.string.toast_extracted), dst), Toast.LENGTH_SHORT).show();
+						Toast.makeText(MainActivity.this, String.format(MainActivity.this.getString(R.string.toast_extracted), dst), Toast.LENGTH_LONG).show();
 					} catch (Exception e) {
 						e.printStackTrace();
-						Toast.makeText(MainActivity.this, R.string.toast_failed, Toast.LENGTH_SHORT).show();
+						Toast.makeText(MainActivity.this, R.string.toast_failed, Toast.LENGTH_LONG).show();
 					}
 				}
 			}).setNegativeButton(R.string.alert_root_no, null)
