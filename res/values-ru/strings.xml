@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+	tools:ignore="MissingTranslation">
+
+	<string name="app_name">APK Extractor</string>
+	<string name="hello_world">Здрасьте!</string>
+	<string name="dlg_loading_title">Загрузка</string>
+	<string name="dlg_loading_body">Список установленных приложений загружается...</string>
+	<string name="msg_search">Поиск</string>
+	<string name="msg_search_help">Искать по названию приложения или имени пакета</string>
+	<string name="toast_extracted">Файл APK извлечён и находится в %s</string>
+	<string name="toast_failed">Извлечь APK файл не получилось. Детали в adb логе.</string>
+	<string name="alert_root_title">Попробовать под рутом?</string>
+	<string name="alert_root_body">Для этого приложения не получается извлечь файл APK обычным образом. Для платных приложений это обычное дело: их защищают от попыток скопировать. Их всё же можно извлечь на рутованных устройствах. Если системный раздел уже открыт на чтение и запись, apkExtractor попробует извлечь файл приложения из-под рута.</string>
+	<string name="alert_root_yes">Извлечь из-под рута</string>
+	<string name="alert_root_no">Потом</string>
+	<string name="alert_perm_title">Необходимые разрешения</string>
+	<string name="alert_perm_body">Для того, чтобы разместить извлечённый APK файл, приложению нужно разрешение на доступ к Хранилищу. Пожалуйста, откройте настройки приложения и дайте это разрешение.</string>
+    <string name="alert_perm_btn">Открыть настройки</string>
+
+</resources>
