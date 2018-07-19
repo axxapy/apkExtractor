@@ -16,8 +16,8 @@ repositories {
 }
 
 android {
-	compileSdkVersion 25
-	buildToolsVersion "27.0.3"
+	compileSdkVersion 28
+	buildToolsVersion "28.0.1"
 
 	compileOptions {
 		sourceCompatibility JavaVersion.VERSION_1_6
@@ -25,8 +25,8 @@ android {
 	}
 
 	defaultConfig {
-		minSdkVersion 10
-		targetSdkVersion 25
+		minSdkVersion 14
+		targetSdkVersion 28
 	}
 
 	sourceSets {
@@ -49,6 +49,6 @@ android {
 }
 
 dependencies {
-	compile 'com.android.support:appcompat-v7:25.4.0'
-	compile 'com.android.support:recyclerview-v7:25.4.0'
+	compile 'com.android.support:appcompat-v7:27.1.1'
+	compile 'com.android.support:recyclerview-v7:27.1.1'
 }
