@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+	tools:ignore="MissingTranslation">
+
+	<string name="app_name">APK-uitpakker</string>
+	<string name="hello_world">Hallo wereld!</string>
+	<string name="dlg_loading_title">Bezig met laden...</string>
+	<string name="dlg_loading_body">Bezig met laden van geïnstalleerde apps...</string>
+	<string name="msg_search">Zoeken</string>
+	<string name="msg_search_help">Zoeken op app- of pakketnaam</string>
+	<string name="toast_extracted">APK-bestand is uitgepakt als %s</string>
+	<string name="toast_failed">Kan APK-bestand niet uitpakken. Bekijk het adb-log voor meer informatie.</string>
+	<string name="alert_root_title">Proberen met root?</string>
+	<string name="alert_root_body">Het lijkt erop dat de app niet met de gebruikelijke methode kan worden uitgepakt. Dit is te verwachten bij betaalde apps: Android beschermt deze tegen kopiëren. Maar op geroote apparaten zijn ze wél uit te pakken. Als je apparaat geroot is, dan kan APK-uitpakker proberen de app uit te pakket met behulp van root.</string>
+	<string name="alert_root_yes">Proberen met root</string>
+	<string name="alert_root_no">Niet nu</string>
+	<string name="alert_perm_title">Machtiging vereist</string>
+	<string name="alert_perm_body">Om het APK-bestand weg te kunnen schrijven, moet de machtiging \'Opslag\' worden verleend.\nOpen de app-instellingen en verleen deze machtiging.</string>
+	<string name="alert_perm_btn">Instellingen openen</string>
+
+</resources>
