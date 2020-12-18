@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+	tools:ignore="MissingTranslation">
+
+	<string name="app_name">APK Extractor</string>
+	<string name="hello_world">Привіт світ!</string>
+	<string name="dlg_loading_title">Завантаження</string>
+	<string name="dlg_loading_body">Завантаження списку встановлених додатків...</string>
+	<string name="msg_search">Пошук</string>
+	<string name="msg_search_help">Шукати за назвою програми або пакету</string>
+	<string name="toast_extracted">Файл APK витягнуто як %s</string>
+	<string name="toast_failed">Не вдалося витягти файл APK. Детальніше дивіться у журналі adb.</string>
+	<string name="alert_root_title">Спробувати як root?</string>
+	<string name="alert_root_body">Здається, цей додаток неможливо витягти звичайним способом. Це нормально для платних додатків: Android намагається захистити їх від копіювання. Однак їх все ще можна отримати на рутованих пристроях. Якщо Ваш пристрій рутований, apkExtractor може спробувати витягти програму використовуючи root.</string>
+	<string name="alert_root_yes">Спробувати з root</string>
+	<string name="alert_root_no">Не зараз</string>
+	<string name="alert_perm_title">Потрібен дозвіл</string>
+	<string name="alert_perm_body">Для запису файлу APK потрібен дозвіл \"Зберігання\".\nБудь ласка, відкрийте налаштування програм та надайте цей дозвіл.</string>
+	<string name="alert_perm_btn">Відкрити налаштування</string>
+
+</resources>
