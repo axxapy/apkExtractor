@@ -3,8 +3,7 @@
 	tools:ignore="MissingTranslation">
 
 	<string name="app_name">APK-uitpakker</string>
-	<string name="hello_world">Hallo wereld!</string>
-	<string name="dlg_loading_title">Bezig met laden...</string>
+    <string name="dlg_loading_title">Bezig met laden...</string>
 	<string name="dlg_loading_body">Bezig met laden van geïnstalleerde apps...</string>
 	<string name="msg_search">Zoeken</string>
 	<string name="msg_search_help">Zoeken op app- of pakketnaam</string>

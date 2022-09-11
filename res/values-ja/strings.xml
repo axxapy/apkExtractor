@@ -2,8 +2,7 @@
 <resources>
 
 	<string name="app_name">Apk Extractor</string>
-	<string name="hello_world">Hello world!</string>
-	<string name="dlg_loading_title">ロード中</string>
+    <string name="dlg_loading_title">ロード中</string>
 	<string name="dlg_loading_body">インストールされたアプリケーションからリストをロード中...</string>
 	<string name="msg_search">検索</string>
 	<string name="msg_search_help">アプリまたはパッケージ名かで検索</string>

@@ -18,13 +18,13 @@ repositories {
 android {
 	compileSdkVersion 31
 
-    compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_6
-		targetCompatibility JavaVersion.VERSION_1_6
+	compileOptions {
+		sourceCompatibility 1.8
+		targetCompatibility 1.8
 	}
 
 	defaultConfig {
-		minSdkVersion 10
+		minSdkVersion 21
 		targetSdkVersion 31
 	}
 
@@ -48,6 +48,8 @@ android {
 }
 
 dependencies {
-	implementation 'com.android.support:appcompat-v7:25.4.0'
-    implementation 'com.android.support:recyclerview-v7:25.4.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+	implementation 'androidx.appcompat:appcompat:1.4.2'
+	implementation 'com.google.android.material:material:1.6.1'
+	implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }
