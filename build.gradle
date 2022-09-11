@@ -4,7 +4,7 @@ buildscript {
 		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:3.1.0'
+		classpath 'com.android.tools.build:gradle:7.2.2'
 	}
 }
 
@@ -16,17 +16,16 @@ repositories {
 }
 
 android {
-	compileSdkVersion 25
-	buildToolsVersion "27.0.3"
+	compileSdkVersion 31
 
-	compileOptions {
+    compileOptions {
 		sourceCompatibility JavaVersion.VERSION_1_6
 		targetCompatibility JavaVersion.VERSION_1_6
 	}
 
 	defaultConfig {
 		minSdkVersion 10
-		targetSdkVersion 25
+		targetSdkVersion 31
 	}
 
 	sourceSets {
@@ -49,6 +48,6 @@ android {
 }
 
 dependencies {
-	compile 'com.android.support:appcompat-v7:25.4.0'
-	compile 'com.android.support:recyclerview-v7:25.4.0'
+	implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation 'com.android.support:recyclerview-v7:25.4.0'
 }
