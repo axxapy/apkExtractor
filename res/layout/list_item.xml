@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 
-	android:id="@+id/card_view"
-	style="@style/myCardView"
-	xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    style="@style/myCardView"
 
-	android:orientation="vertical"
-	android:gravity="center"
-	android:layout_width="match_parent"
-	android:minHeight="?attr/listPreferredItemHeight"
-	android:layout_height="wrap_content"
-	>
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:minHeight="?attr/listPreferredItemHeight"
-		android:layout_height="wrap_content"
-		android:paddingLeft="16dip"
-		android:paddingRight="16dip"
-		android:orientation="horizontal"
-		android:clickable="false"
-		android:focusable="false">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:minHeight="?attr/listPreferredItemHeight"
+    android:orientation="vertical">
 
-	<!--android:layout_width="?android:attr/listPreferredItemHeight"-->
-		<ImageView
-			android:id="@+id/imgIcon"
-			android:layout_width="72dip"
-			android:paddingRight="16dip"
-			android:scaleType="fitCenter"
-			android:adjustViewBounds="true"
-			android:layout_height="match_parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+        android:minHeight="?attr/listPreferredItemHeight"
+        android:orientation="horizontal"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip">
 
-		<LinearLayout
-			android:orientation="vertical"
-			android:gravity="center"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+        <!--android:layout_width="?android:attr/listPreferredItemHeight"-->
+        <ImageView
+            android:id="@+id/imgIcon"
+            android:layout_width="72dip"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:paddingRight="16dip"
+            android:scaleType="fitCenter" />
 
-			<TextView
-				android:id="@+id/txtAppName"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center_horizontal|bottom"
-				android:textAppearance="?android:attr/textAppearanceMedium" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-			<TextView
-				android:id="@+id/txtPackageName"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center_horizontal|top"
-				android:textAppearance="?android:attr/textAppearanceSmall" />
-		</LinearLayout>
-	</LinearLayout>
+            <TextView
+                android:id="@+id/txtAppName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|bottom"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-	<View
-		android:layout_width="match_parent"
-		android:layout_height="1dp"
-		android:background="?attr/dividerVertical" />
+            <TextView
+                android:id="@+id/txtPackageName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|top"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/dividerVertical" />
 </LinearLayout>

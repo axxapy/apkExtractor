@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-	<string name="app_name">APK-Extraktor</string>
+    <string name="app_name">APK-Extraktor</string>
     <string name="dlg_loading_title">Lade</string>
-	<string name="dlg_loading_body">Lade Liste mit installierten Apps...</string>
-	<string name="msg_search">Suche</string>
-	<string name="msg_search_help">Suche per App- oder Paketname</string>
-	<string name="toast_extracted">APK-Datei wurde nach %s gespeichert</string>
-	<string name="toast_failed">Extraktion fehlgeschlagen. Siehe ADB-Log für weitere Details.</string>
-	<string name="alert_root_title">Als root versuchen?</string>
-	<string name="alert_root_body">Es sieht aus als könne diese App nicht auf normalem Weg extrahiert werden. Dies ist normal für bezahlte Apps: Android versucht das Kopieren zu verhindern. Auf gerooteten Geräten können diese Apps dennoch extrahiert werden. Ist dein Gerät gerootet kann apkExtractor versuchen diese Apps als root zu extrahieren.</string>
-	<string name="alert_root_yes">Versuche es als root</string>
-	<string name="alert_root_no">Nicht jetzt</string>
-	<string name="alert_perm_title">Berechtigung benötigt</string>
-	<string name="alert_perm_body">Um eine APK-Datei zu erstellen, muss die App die \"Speicher\" Berechtigung haben.\nBitte öffne die App-Einstellungen und erteile die \"Speicher\"-Berechtigung.</string>
-	<string name="alert_perm_btn">Einstellungen öffnen</string>
+    <string name="dlg_loading_body">Lade Liste mit installierten Apps...</string>
+    <string name="msg_search">Suche</string>
+    <string name="msg_search_help">Suche per App- oder Paketname</string>
+    <string name="toast_extracted">APK-Datei wurde nach %s gespeichert</string>
+    <string name="toast_failed">Extraktion fehlgeschlagen. Siehe ADB-Log für weitere Details.</string>
+    <string name="alert_root_title">Als root versuchen?</string>
+    <string name="alert_root_body">Es sieht aus als könne diese App nicht auf normalem Weg extrahiert werden. Dies ist normal für bezahlte Apps: Android versucht das Kopieren zu verhindern. Auf gerooteten Geräten können diese Apps dennoch extrahiert werden. Ist dein Gerät gerootet kann apkExtractor versuchen diese Apps als root zu extrahieren.</string>
+    <string name="alert_root_yes">Versuche es als root</string>
+    <string name="alert_root_no">Nicht jetzt</string>
+    <string name="alert_perm_title">Berechtigung benötigt</string>
+    <string name="alert_perm_body">Um eine APK-Datei zu erstellen, muss die App die \"Speicher\" Berechtigung haben.\nBitte öffne die App-Einstellungen und erteile die \"Speicher\"-Berechtigung.</string>
+    <string name="alert_perm_btn">Einstellungen öffnen</string>
 
 </resources>

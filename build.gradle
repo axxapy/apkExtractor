@@ -1,56 +1,56 @@
 buildscript {
-	repositories {
-		jcenter()
-		google()
-	}
-	dependencies {
-		classpath 'com.android.tools.build:gradle:7.2.2'
-	}
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.2.2'
+    }
 }
 
 apply plugin: 'com.android.application'
 
 repositories {
-	jcenter()
-	google()
+    jcenter()
+    google()
 }
 
 android {
-	compileSdkVersion 32
+    compileSdkVersion 32
 
-	compileOptions {
-		sourceCompatibility 1.8
-		targetCompatibility 1.8
-	}
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 
-	defaultConfig {
-		minSdkVersion 16
-		targetSdkVersion 32
-	}
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 32
+    }
 
-	sourceSets {
-		main {
-			manifest.srcFile 'AndroidManifest.xml'
-			//resources.srcDirs = ['src']
-			java.srcDirs = ['src']
-			aidl.srcDirs = ['src']
-			renderscript.srcDirs = ['src']
-			res.srcDirs = ['res']
-			assets.srcDirs = ['assets']
-		}
-	}
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            //resources.srcDirs = ['src']
+            java.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+    }
 
-	buildTypes {
-		release {
-			minifyEnabled false
-		}
-	}
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
 }
 
 dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
-	implementation 'androidx.appcompat:appcompat:1.5.1'
-	implementation 'com.google.android.material:material:1.6.1'
-	implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
 }
