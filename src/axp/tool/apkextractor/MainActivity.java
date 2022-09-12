@@ -1,6 +1,7 @@
 package axp.tool.apkextractor;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -9,7 +10,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -157,5 +160,15 @@ public class MainActivity extends AppCompatActivity {
 			super.onPostExecute(aVoid);
 			dialog.dismiss();
 		}
+
+
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+									ContextMenu.ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater =getMenuInflater();
+		inflater.inflate(R.menu.context_menu, menu);
 	}
 }

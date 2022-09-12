@@ -1,5 +1,6 @@
 package axp.tool.apkextractor;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -14,7 +15,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,6 +57,8 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 		this.packageManager = activity.getPackageManager();
 		mActivity = activity;
 	}
+
+
 
 	class AppNameLoader implements Runnable {
 		private PackageInfo package_info;
@@ -125,6 +131,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 		private TextView       txtAppName;
 		public  ImageView      imgIcon;
 
+		TextView about_app;
 		public ViewHolder(View v, ApkListAdapter adapter) {
 			super(v);
 			this.adapter = adapter;
@@ -137,7 +144,34 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 		@Override
 		public void onClick(View v) {
 			PackageInfo info = adapter.getItem(getAdapterPosition());
-			adapter.mActivity.doExctract(info);
+			//adapter.mActivity.doExctract(info);
+			//Intent i = new Intent(v.getContext(), info_popup_activity.class);
+			//i.putExtra("package_info",info);
+			//v.getContext().startActivity(i);
+
+			final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+					v.getContext());
+			View bottomSheetView = LayoutInflater.from(v.getContext().getApplicationContext())
+					.inflate(R.layout.bottom_sheet, v.findViewById(R.id.bottomSheet));
+
+			about_app = bottomSheetView.findViewById(R.id.about_app);
+
+
+			addToDescription("package name: " + info.packageName);
+			addToDescription("version name: " + info.versionName);
+			addToDescription("version code: " + info.versionCode);
+			addToDescription("first installed" + info.firstInstallTime);
+			addToDescription("last updated" + info.lastUpdateTime);
+			addToDescription("name: " + info.applicationInfo.loadLabel(adapter.packageManager));
+
+			bottomSheetDialog.setContentView(bottomSheetView);
+			bottomSheetDialog.show();
+
+		}
+
+		public void addToDescription(String text) {
+			about_app.append(text);
+			about_app.append("\n");
 		}
 
 		public void setAppName(String name, String highlight) {

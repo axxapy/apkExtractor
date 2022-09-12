@@ -9,21 +9,15 @@ import java.nio.channels.FileChannel;
 
 public class Extractor {
 	private String get_out_filename(PackageInfo info) {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
-			return "/Download/apk/" + info.packageName + "_v" + info.versionCode + ".apk";
-		} else {
 			return "/apk/" + info.packageName + "_v" + info.versionCode + ".apk";
-		}
 	}
 
 	public String extractWithoutRoot(PackageInfo info) throws Exception {
 		File src = new File(info.applicationInfo.sourceDir);
 		File dst;
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
-			dst = new File(Environment.getExternalStorageDirectory(), get_out_filename(info));
-		} else {
+
 			dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),  get_out_filename(info));
-		}
+
 		dst = buildDstPath(dst);
 		try {
 			copy(src, dst);

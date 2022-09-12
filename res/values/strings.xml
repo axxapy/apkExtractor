@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools"
-	tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-	<string name="app_name">APK Extractor</string>
+    <string name="app_name">APK Extractor</string>
     <string name="dlg_loading_title">Loading</string>
-	<string name="dlg_loading_body">Loading list of installed applications...</string>
-	<string name="msg_search">Search</string>
-	<string name="msg_search_help">Search by app or package names</string>
-	<string name="toast_extracted">Apk file was extracted as %s</string>
-	<string name="toast_failed">Failed to extract apk file. See adb log for details.</string>
-	<string name="alert_root_title">Try with root?</string>
-	<string name="alert_root_body">It seems that this application cannot be extracted through regular way. It is okay for paid apps: android tries to protect them from copying. However they are still extractable on rooted devices. If your device is rooted, apkExtractor could try to extract it using root.</string>
-	<string name="alert_root_yes">Lets try with root</string>
-	<string name="alert_root_no">Not now</string>
-	<string name="alert_perm_title">Permission required</string>
-	<string name="alert_perm_body">In order to write apk file application must be granted with \"Storage\" permission.\nPlease, open app\'s settings and grant \"Storage\" permission to it.</string>
-	<string name="alert_perm_btn">Open settings</string>
+    <string name="dlg_loading_body">Loading list of installed applications...</string>
+    <string name="msg_search">Search</string>
+    <string name="msg_search_help">Search by app or package names</string>
+    <string name="toast_extracted">Apk file was extracted as %s</string>
+    <string name="toast_failed">Failed to extract apk file. See adb log for details.</string>
+    <string name="alert_root_title">Try with root?</string>
+    <string name="alert_root_body">It seems that this application cannot be extracted through regular way. It is okay for paid apps: android tries to protect them from copying. However they are still extractable on rooted devices. If your device is rooted, apkExtractor could try to extract it using root.</string>
+    <string name="alert_root_yes">Lets try with root</string>
+    <string name="alert_root_no">Not now</string>
+    <string name="alert_perm_title">Permission required</string>
+    <string name="alert_perm_body">In order to write apk file application must be granted with \"Storage\" permission.\nPlease, open app\'s settings and grant \"Storage\" permission to it.</string>
+    <string name="alert_perm_btn">Open settings</string>
 
 </resources>
