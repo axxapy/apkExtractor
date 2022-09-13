@@ -80,7 +80,7 @@ public class PermissionResolver {
     }
 
 
-    private String[] getUnmetPermissions() {
+    public String[] getUnmetPermissions() {
         List<String> unmet_permissions = new LinkedList<String>();
         try {
             List<String> def = Arrays.asList(DEFAULT_PERMISSIONS);
